@@ -11,6 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
+tools/
+scripts/get-git.cjs
+scripts/init-repo.cjs
+scripts/push-repo.cjs
 
 # Editor directories and files
 .vscode/*
