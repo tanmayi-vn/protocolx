@@ -7,9 +7,15 @@ import DashboardPage from './pages/DashboardPage';
 import type { AppView, ConversationData, AnalysisResult } from './types';
 import { analyzeConversation } from './services/analyzer';
 import { saveAnalysis } from './services/storage';
+import { Scene } from './Scene';
 
 export default function App() {
-  const [view, setView] = useState<AppView>('input');
+  const [view, setView] = useState<AppView>(() => {
+    if (typeof window !== 'undefined' && (window.location.search.includes('scene') || window.location.hash === '#scene')) {
+      return 'scene';
+    }
+    return 'input';
+  });
   const [conversation, setConversation] = useState<ConversationData | null>(null);
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [progressStep, setProgressStep] = useState('');
@@ -128,6 +134,17 @@ export default function App() {
             )}
           </button>
 
+          <button
+            className="theme-toggle-btn"
+            onClick={() => setView((v) => (v === 'scene' ? 'input' : 'scene'))}
+            aria-label="Toggle Sketchbook Landing Page Demo"
+            title="Toggle Sketchbook Landing Page Demo"
+            id="sketchbook-toggle"
+          >
+            <Sparkles size={14} className="theme-toggle-icon" />
+            <span className="theme-toggle-text">{view === 'scene' ? 'Back' : 'Sketchbook'}</span>
+          </button>
+
           <div className="header-status-pill">
             <span className="live-dot" />
             <span>Local Engine</span>
@@ -147,6 +164,12 @@ export default function App() {
 
       {/* Main View Router */}
       <main className="app-main-content">
+        {view === 'scene' && (
+          <div style={{ width: '100%', height: 'calc(100vh - 120px)', minHeight: '600px', display: 'flex', flexDirection: 'column' }}>
+            <Scene />
+          </div>
+        )}
+
         {view === 'input' && (
           <InputPage onAnalyze={handleAnalyze} />
         )}

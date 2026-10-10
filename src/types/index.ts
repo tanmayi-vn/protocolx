@@ -89,7 +89,7 @@ export interface AnalysisResult {
   participantCount: number;
 }
 
-export type AppView = 'input' | 'analyzing' | 'dashboard';
+export type AppView = 'input' | 'analyzing' | 'dashboard' | 'scene';
 
 export type FilterTab =
   | 'all'

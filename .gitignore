@@ -15,6 +15,7 @@ tools/
 scripts/get-git.cjs
 scripts/init-repo.cjs
 scripts/push-repo.cjs
+scripts/verify-html.cjs
 
 # Editor directories and files
 .vscode/*
